@@ -1,213 +1,638 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kumail Haider | AI Engineer</title>
-<meta name="description" content="AI Engineer portfolio – production ML, computer vision, RAG systems, and financial distress prediction research.">
-<link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kumail Haider | AI Engineer</title>
+  <meta name="description" content="AI Engineer portfolio for Kumail Haider — production ML, computer vision, RAG systems, and financial distress prediction." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121933;
+      --panel-2: #0f1530;
+      --text: #edf2ff;
+      --muted: #aeb9d6;
+      --accent: #78a6ff;
+      --accent-2: #8ef0d2;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --max: 1120px;
+    }
 
-<style>
-:root{
---bg:#0b1020;
---panel:#121933;
---text:#edf2ff;
---muted:#aeb9d6;
---accent:#78a6ff;
---accent2:#8ef0d2;
---border:rgba(255,255,255,0.08);
---max:1100px;
-}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(120,166,255,0.18), transparent 26%),
+        radial-gradient(circle at top right, rgba(142,240,210,0.12), transparent 18%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Inter,system-ui,sans-serif;
-background:radial-gradient(circle at top left,rgba(120,166,255,.2),transparent 30%),var(--bg);
-color:var(--text);
-line-height:1.6;
-}
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
-.container{width:min(var(--max),92%);margin:auto}
+    .container {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+    }
 
-nav{position:sticky;top:0;background:rgba(11,16,32,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-nav .row{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
-nav a{color:var(--muted);margin-left:16px;text-decoration:none}
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(11,16,32,0.72);
+      border-bottom: 1px solid var(--border);
+    }
 
-.hero{padding:70px 0 40px}
-.hero-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:30px}
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.95rem 0;
+      gap: 1rem;
+    }
 
-.avatar{
-width:90px;
-height:90px;
-border-radius:20px;
-object-fit:cover;
-border:2px solid var(--border);
-}
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
 
-.card{
-background:var(--panel);
-border:1px solid var(--border);
-padding:22px;
-border-radius:18px;
-}
+    .nav-links {
+      display: flex;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
 
-h1{font-size:46px;margin:10px 0}
-h2{margin-top:60px}
+    .nav-links a:hover,
+    .btn:hover,
+    .social a:hover,
+    .project-links a:hover {
+      opacity: 0.86;
+    }
 
-.btn{
-display:inline-block;
-padding:12px 18px;
-border-radius:12px;
-background:var(--accent);
-color:white;
-text-decoration:none;
-font-weight:600;
-margin-right:10px;
-margin-top:14px
-}
+    .hero {
+      padding: 5.5rem 0 3.2rem;
+    }
 
-.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.project img{border-radius:12px;margin-bottom:10px}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 2rem;
+      align-items: center;
+    }
 
-.tech{margin-top:10px;font-size:14px;color:var(--accent2)}
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.92rem;
+      color: var(--accent-2);
+      background: rgba(142,240,210,0.08);
+      border: 1px solid rgba(142,240,210,0.18);
+      border-radius: 999px;
+      padding: 0.5rem 0.8rem;
+      margin-bottom: 1rem;
+    }
 
-.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.skill{background:var(--panel);padding:14px;border-radius:12px;border:1px solid var(--border)}
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 1.02;
+      margin: 0 0 1rem;
+      letter-spacing: -0.04em;
+    }
 
-footer{margin-top:60px;padding:30px 0;text-align:center;color:var(--muted)}
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 700px;
+    }
 
-@media(max-width:900px){
-.hero-grid,.projects,.skills{grid-template-columns:1fr}
-}
-</style>
+    .highlight {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 1.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.92rem 1.15rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), #5c86ff);
+      color: white;
+      border: none;
+    }
+
+    .hero-card,
+    .section-card,
+    .project-card,
+    .timeline-item,
+    .metric,
+    .contact-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 1.4rem;
+    }
+
+    .profile {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .avatar {
+      width: 66px;
+      height: 66px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid;
+      place-items: center;
+      color: #08101f;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .profile small,
+    .muted {
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9rem;
+    }
+
+    .metric {
+      padding: 1rem;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 0.2rem;
+    }
+
+    section {
+      padding: 1rem 0 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 700px;
+    }
+
+    .about-grid,
+    .projects-grid,
+    .contact-grid,
+    .skills-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .about-grid { grid-template-columns: 1.2fr 0.8fr; }
+    .projects-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(4, 1fr); }
+    .contact-grid { grid-template-columns: 1fr 1fr; }
+
+    .section-card,
+    .project-card,
+    .contact-card {
+      padding: 1.35rem;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+    }
+
+    .list li + li { margin-top: 0.6rem; }
+
+    .skill-box {
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+    }
+
+    .skill-box h3 {
+      margin: 0 0 0.55rem;
+      font-size: 1rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      padding: 0.42rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(120,166,255,0.08);
+      border: 1px solid rgba(120,166,255,0.16);
+      font-size: 0.88rem;
+      color: #d7e4ff;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .project-tag {
+      display: inline-flex;
+      align-self: start;
+      padding: 0.38rem 0.62rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      border: 1px solid rgba(142,240,210,0.18);
+      background: rgba(142,240,210,0.07);
+      color: var(--accent-2);
+    }
+
+    .project-card h3,
+    .timeline-item h3,
+    .contact-card h3 {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .project-card p,
+    .timeline-item p,
+    .contact-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .project-links,
+    .social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: auto;
+      color: #d8e4ff;
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .timeline-item {
+      padding: 1.25rem;
+    }
+
+    .timeline-meta {
+      color: var(--accent-2);
+      font-size: 0.92rem;
+      margin-bottom: 0.45rem;
+      display: block;
+    }
+
+    footer {
+      padding: 2.2rem 0 3rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .projects-grid,
+      .skills-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .hero {
+        padding-top: 4rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">Kumail Haider</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
 
-<nav>
-<div class="container row">
-<strong>Kumail Haider</strong>
-<div>
-<a href="#projects">Projects</a>
-<a href="#research">Research</a>
-<a href="#skills">Skills</a>
-<a href="#contact">Contact</a>
-</div>
-</div>
-</nav>
+  <header class="hero container">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">AI Engineer • Production ML • Computer Vision • RAG Systems</div>
+        <h1>Building AI systems that move from <span style="color: var(--accent-2);">research</span> to <span style="color: var(--accent);">real-world impact</span>.</h1>
+        <p>
+          I’m <span class="highlight">Kumail Haider</span>, an AI Engineer based in London with hands-on experience across
+          production machine learning, deep learning, backend integration, and applied research. I build practical AI products,
+          interpretable computer vision pipelines, and scalable systems that support measurable business outcomes.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn" href="/Kumail-AI%20Engineer.pdf" target="_blank" rel="noopener">Download CV</a>
+          <a class="btn" href="mailto:kumailhaiderid@gmail.com">Contact Me</a>
+        </div>
+      </div>
 
-<section class="hero container">
-<div class="hero-grid">
+      <div class="hero-card">
+        <div class="profile">
+          <div class="profile-top">
+            <div class="avatar">KH</div>
+            <div>
+              <strong>Kumail Haider</strong><br />
+              <small>AI Engineer · London, UK</small>
+            </div>
+          </div>
+          <div class="stats">
+            <div class="metric">
+              <strong>12–18%</strong>
+              <small>re-engagement uplift from AI-driven automation</small>
+            </div>
+            <div class="metric">
+              <strong>30%+</strong>
+              <small>faster ML iteration through ETL and pipeline optimisation</small>
+            </div>
+            <div class="metric">
+              <strong>93–95%</strong>
+              <small>accuracy on CNN + RAFT distress prediction research</small>
+            </div>
+            <div class="metric">
+              <strong>0.90</strong>
+              <small>recall-focused performance for financial distress detection</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<div>
-<p style="color:var(--accent2)">AI Engineer • Production ML • Computer Vision</p>
-<h1>Building AI systems that move from research to real‑world impact</h1>
+  <main class="container">
+    <section id="about">
+      <div class="section-head">
+        <div>
+          <h2>About</h2>
+          <p>Production-focused AI engineer with a strong applied research foundation and a portfolio aligned to real hiring signals.</p>
+        </div>
+      </div>
+      <div class="about-grid">
+        <div class="section-card">
+          <p>
+            I recently completed an MSc in Applied Artificial Intelligence with Distinction and have worked on production ML systems,
+            predictive modelling, REST-based deployment, and deep learning research. My work spans customer re-engagement systems,
+            computer vision, optical flow-based modelling, and LLM/RAG applications.
+          </p>
+          <p>
+            I’m currently targeting AI Engineer, ML Engineer, and applied AI roles across the UK, Europe, Canada, and the US,
+            with interest in fintech, risk, insurtech, computer vision, and product-led AI environments.
+          </p>
+        </div>
+        <div class="section-card">
+          <h3 style="margin-top:0;">What I bring</h3>
+          <ul class="list">
+            <li>Production ML systems with measurable business impact</li>
+            <li>Deep learning and computer vision research translated into practical artefacts</li>
+            <li>Backend integration with APIs, model serving, and deployment workflows</li>
+            <li>Clear communication across engineering, product, and non-technical stakeholders</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-<p>
-AI Engineer with production experience building machine learning systems and deep learning models. MSc Applied Artificial Intelligence (Distinction). Experienced in ML pipelines, deployment, computer vision and RAG systems.
-</p>
+    <section id="projects">
+      <div class="section-head">
+        <div>
+          <h2>Selected Projects</h2>
+          <p>Three portfolio anchors that support your positioning as an AI engineer rather than a generic graduate profile.</p>
+        </div>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+          <span class="project-tag">Research + Computer Vision</span>
+          <h3>Financial Distress Prediction using CNN + RAFT</h3>
+          <p>
+            Developed a novel vision-based framework that transformed SEC 10-K financial ratios into image sequences and modelled
+            temporal evolution using RAFT optical flow and CNN architectures.
+          </p>
+          <div class="pill-row">
+            <span class="pill">PyTorch</span>
+            <span class="pill">TensorFlow</span>
+            <span class="pill">OpenCV</span>
+            <span class="pill">RAFT</span>
+          </div>
+          <p><strong>Outcome:</strong> Achieved 93–95% classification accuracy with ~0.90 recall and interpretable flow-map analysis.</p>
+          <div class="project-links">
+            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </article>
 
-<a class="btn" href="Kumail-AI Engineer.pdf" target="_blank">Download CV</a>
-<a class="btn" href="https://github.com/kumail-sp" target="_blank">GitHub</a>
+        <article class="project-card">
+          <span class="project-tag">Production ML</span>
+          <h3>AI-Driven Member Re-engagement at Wellyx</h3>
+          <p>
+            Built predictive models for engagement and renewal probabilities, integrated ML outputs into business workflows,
+            and supported operational decision-making across thousands of gym members.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Python</span>
+            <span class="pill">Scikit-learn</span>
+            <span class="pill">Pandas</span>
+            <span class="pill">REST APIs</span>
+          </div>
+          <p><strong>Outcome:</strong> Contributed to ~12–18% improvement in re-engagement and reduced manual intervention via microservices.</p>
+          <div class="project-links">
+            <a href="#contact">Ask for details ↗</a>
+          </div>
+        </article>
 
-</div>
+        <article class="project-card">
+          <span class="project-tag">LLM Applications</span>
+          <h3>Agentic RAG / LLM Workflow Systems</h3>
+          <p>
+            Designed retrieval-augmented workflows and structured prompt pipelines for AI-driven career analysis and practical decision support,
+            with deployment-ready thinking around usage tracking and productionisation.
+          </p>
+          <div class="pill-row">
+            <span class="pill">RAG</span>
+            <span class="pill">LLMs</span>
+            <span class="pill">FastAPI</span>
+            <span class="pill">Docker</span>
+          </div>
+          <p><strong>Outcome:</strong> Built a portfolio-ready applied AI system aligned with current market demand for agentic products.</p>
+          <div class="project-links">
+            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
-<div class="card">
-<img src="profile.jpg" class="avatar" alt="Kumail Haider">
-<p><strong>Kumail Haider</strong></p>
-<p class="muted">AI Engineer based in London</p>
+    <section id="experience">
+      <div class="section-head">
+        <div>
+          <h2>Experience</h2>
+          <p>Relevant experience across production AI, mentoring, and software engineering.</p>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-meta">Apr 2024 – Present · London</span>
+          <h3>AI Engineer · Wellyx</h3>
+          <p>Designed and deployed AI-driven features, predictive models, ETL pipelines, and REST-based services for production workflows.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-meta">Feb 2025 – Apr 2025 · London</span>
+          <h3>Client Project Manager / Industry Mentor · London South Bank University</h3>
+          <p>Acted as project client and mentor for software engineering teams, improving sprint delivery quality through structured feedback.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-meta">Sep 2022 – Aug 2023 · Lahore</span>
+          <h3>Software Developer · Soft Steer Global Technology</h3>
+          <p>Built backend features in C#, improved API stability, and delivered solutions under real client and deployment constraints.</p>
+        </div>
+      </div>
+    </section>
 
-<ul>
-<li>12–18% re‑engagement uplift from AI automation</li>
-<li>30% faster ML experimentation pipelines</li>
-<li>93–95% accuracy financial distress model</li>
-</ul>
-</div>
+    <section id="skills">
+      <div class="section-head">
+        <div>
+          <h2>Core Skills</h2>
+          <p>Stack aligned to AI Engineer and applied ML roles.</p>
+        </div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-box">
+          <h3>Programming</h3>
+          <div class="pill-row">
+            <span class="pill">Python</span>
+            <span class="pill">SQL</span>
+            <span class="pill">C#</span>
+            <span class="pill">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-box">
+          <h3>ML / DL</h3>
+          <div class="pill-row">
+            <span class="pill">PyTorch</span>
+            <span class="pill">TensorFlow</span>
+            <span class="pill">Scikit-learn</span>
+            <span class="pill">CNNs</span>
+          </div>
+        </div>
+        <div class="skill-box">
+          <h3>Deployment</h3>
+          <div class="pill-row">
+            <span class="pill">FastAPI</span>
+            <span class="pill">REST APIs</span>
+            <span class="pill">Docker</span>
+            <span class="pill">Git</span>
+          </div>
+        </div>
+        <div class="skill-box">
+          <h3>Applied AI</h3>
+          <div class="pill-row">
+            <span class="pill">Computer Vision</span>
+            <span class="pill">RAFT Optical Flow</span>
+            <span class="pill">RAG Systems</span>
+            <span class="pill">MLOps</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</div>
-</section>
+    <section id="contact">
+      <div class="section-head">
+        <div>
+          <h2>Contact</h2>
+          <p>Open to AI Engineer, ML Engineer, and applied AI opportunities.</p>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Let’s connect</h3>
+          <p>I’m currently open to conversations about production ML, computer vision, RAG systems, and AI roles across international markets.</p>
+          <div class="social">
+            <a href="mailto:kumailhaiderid@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/kumail-sp" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <h3>Quick details</h3>
+          <p><strong>Location:</strong> London, United Kingdom</p>
+          <p><strong>Email:</strong> kumailhaiderid@gmail.com</p>
+          <p><strong>Focus:</strong> AI Engineer · ML Engineer · Applied AI</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<section id="projects" class="container">
-<h2>Selected Projects</h2>
-
-<div class="projects">
-
-<div class="card project">
-<img src="project-distress.png" alt="Financial Distress AI">
-<h3>Financial Distress Prediction (CNN + RAFT)</h3>
-<p>Computer vision framework transforming financial ratios into image sequences and modelling temporal evolution with RAFT optical flow.</p>
-<p class="tech">Tech: PyTorch • OpenCV • CNN • RAFT • Python</p>
-<a href="https://github.com/kumail-sp" target="_blank">View Code →</a>
-</div>
-
-<div class="card project">
-<img src="project-wellyx.png" alt="Production ML">
-<h3>AI Member Re‑engagement System</h3>
-<p>Predictive models deployed in production improving engagement outcomes and automating marketing workflows.</p>
-<p class="tech">Tech: Python • Scikit‑learn • Pandas • REST APIs</p>
-<a href="https://github.com/kumail-sp" target="_blank">View Code →</a>
-</div>
-
-<div class="card project">
-<img src="project-rag.png" alt="Agentic RAG">
-<h3>Agentic RAG System</h3>
-<p>Retrieval‑augmented AI system analysing career data and generating insights using LLM pipelines.</p>
-<p class="tech">Tech: LLM • RAG • FastAPI • Docker</p>
-<a href="https://github.com/kumail-sp" target="_blank">View Code →</a>
-</div>
-
-</div>
-</section>
-
-<section id="research" class="container">
-<h2>Featured Research</h2>
-
-<div class="card">
-<h3>Visualizing Financial Evolution: A Computer Vision Framework for Corporate Distress Prediction</h3>
-<p>
-Research project transforming financial statements into visual representations and analysing temporal patterns using optical flow techniques.
-</p>
-
-<ul>
-<li>93–95% model accuracy</li>
-<li>~0.90 recall for distress detection</li>
-<li>Interpretability through magnitude and angle flow maps</li>
-</ul>
-
-</div>
-</section>
-
-<section id="skills" class="container">
-<h2>Core Skills</h2>
-
-<div class="skills">
-<div class="skill">Python</div>
-<div class="skill">PyTorch</div>
-<div class="skill">TensorFlow</div>
-<div class="skill">Scikit‑learn</div>
-<div class="skill">OpenCV</div>
-<div class="skill">Docker</div>
-<div class="skill">FastAPI</div>
-<div class="skill">RAG / LLMs</div>
-</div>
-
-</section>
-
-<section id="contact" class="container">
-<h2>Contact</h2>
-
-<div class="card">
-<p>Email: kumailhaiderid@gmail.com</p>
-<p>LinkedIn: https://linkedin.com/in/kumail-sp</p>
-<p>GitHub: https://github.com/kumail-sp</p>
-</div>
-
-</section>
-
-<footer>
-© 2026 Kumail Haider — AI Engineer Portfolio
-</footer>
-
+  <footer>
+    © 2026 Kumail Haider · Built for recruiter clarity, strong technical positioning, and global AI opportunities.
+  </footer>
 </body>
 </html>
