@@ -21,15 +21,35 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(120,166,255,0.18), transparent 26%),
-        radial-gradient(circle at top right, rgba(142,240,210,0.12), transparent 18%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated gradient background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(120,166,255,0.15), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(142,240,210,0.12), transparent 40%);
+      animation: gradient-shift 20s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-10%, -10%) rotate(180deg); }
     }
 
     a { color: inherit; text-decoration: none; }
@@ -70,11 +90,28 @@
       font-size: 0.96rem;
     }
 
-    .nav-links a:hover,
-    .btn:hover,
-    .social a:hover,
-    .project-links a:hover {
-      opacity: 0.86;
+    .nav-links a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .hero {
@@ -99,6 +136,12 @@
       border-radius: 999px;
       padding: 0.5rem 0.8rem;
       margin-bottom: 1rem;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
 
     h1 {
@@ -138,7 +181,32 @@
       background: var(--panel);
       box-shadow: var(--shadow);
       font-weight: 600;
-      transition: 0.2s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.4);
     }
 
     .btn.primary {
@@ -157,6 +225,7 @@
       border: 1px solid var(--border);
       border-radius: 24px;
       box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
 
     .hero-card {
@@ -199,12 +268,22 @@
 
     .metric {
       padding: 1rem;
+      border-left: 3px solid transparent;
     }
+
+    .metric:nth-child(1) { border-left-color: var(--accent); }
+    .metric:nth-child(2) { border-left-color: var(--accent-2); }
+    .metric:nth-child(3) { border-left-color: #ff78a6; }
+    .metric:nth-child(4) { border-left-color: #ffd078; }
 
     .metric strong {
       display: block;
-      font-size: 1.35rem;
+      font-size: 2rem;
       margin-bottom: 0.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     section {
@@ -249,6 +328,13 @@
       padding: 1.35rem;
     }
 
+    .section-card:hover,
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 30px 80px rgba(120,166,255,0.2);
+      border-color: rgba(120,166,255,0.2);
+    }
+
     .list {
       margin: 0;
       padding-left: 1.1rem;
@@ -262,6 +348,12 @@
       border-radius: 18px;
       border: 1px solid var(--border);
       background: var(--panel-2);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .skill-box:hover {
+      transform: translateY(-4px);
+      background: rgba(120,166,255,0.08);
     }
 
     .skill-box h3 {
@@ -288,6 +380,39 @@
       display: flex;
       flex-direction: column;
       gap: 0.9rem;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 80px rgba(120,166,255,0.25);
+      border-color: rgba(120,166,255,0.3);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(120,166,255,0.3), rgba(142,240,210,0.2));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: translateX(-100%);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      100% { transform: translateX(100%); }
     }
 
     .project-tag {
@@ -326,6 +451,29 @@
       font-size: 0.94rem;
     }
 
+    .project-links a,
+    .social a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .project-links a::after,
+    .social a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .project-links a:hover::after,
+    .social a:hover::after {
+      width: 100%;
+    }
+
     .timeline {
       display: grid;
       gap: 1rem;
@@ -342,11 +490,59 @@
       display: block;
     }
 
+    .currently-building {
+      background: linear-gradient(135deg, rgba(120,166,255,0.15), rgba(142,240,210,0.1));
+      border: 2px solid var(--accent);
+      padding: 2rem;
+      border-radius: 24px;
+      margin: 2rem 0;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(120,166,255,0.3); }
+      50% { box-shadow: 0 0 40px rgba(120,166,255,0.5); }
+    }
+
+    .floating-cv-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(135deg, var(--accent), #5c86ff);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(120,166,255,0.4);
+      font-weight: 600;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .floating-cv-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(120,166,255,0.6);
+    }
+
     footer {
       padding: 2.2rem 0 3rem;
       color: var(--muted);
       text-align: center;
       font-size: 0.94rem;
+    }
+
+    /* Fade-in animation for scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     @media (max-width: 980px) {
@@ -365,6 +561,13 @@
 
       .hero {
         padding-top: 4rem;
+      }
+
+      .floating-cv-btn {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -386,17 +589,17 @@
   <header class="hero container">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow">AI Engineer • Production ML • Computer Vision • RAG Systems</div>
+        <div class="eyebrow">🚀 AI Engineer • Production ML • Computer Vision • RAG Systems</div>
         <h1>Building AI systems that move from <span style="color: var(--accent-2);">research</span> to <span style="color: var(--accent);">real-world impact</span>.</h1>
         <p>
-          I’m <span class="highlight">Kumail Haider</span>, an AI Engineer based in London with hands-on experience across
+          I'm <span class="highlight">Kumail Haider</span>, an AI Engineer based in London with hands-on experience across
           production machine learning, deep learning, backend integration, and applied research. I build practical AI products,
           interpretable computer vision pipelines, and scalable systems that support measurable business outcomes.
         </p>
         <div class="cta-row">
           <a class="btn primary" href="#projects">View Projects</a>
-          <a class="btn" href="/Kumail-AI%20Engineer.pdf" target="_blank" rel="noopener">Download CV</a>
-          <a class="btn" href="mailto:kumailhaiderid@gmail.com">Contact Me</a>
+          <a class="btn" href="Kumail_Haider_AI_Engineer_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+          <a class="btn" href="mailto:kumail@kumailhaider.com">Contact Me</a>
         </div>
       </div>
 
@@ -432,6 +635,19 @@
     </div>
   </header>
 
+  <!-- Currently Building Section -->
+  <div class="container" style="padding: 3rem 0 1rem;">
+    <div class="currently-building fade-in">
+      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+        <span style="font-size: 2rem;">⚡</span>
+        <h3 style="margin: 0; font-size: 1.3rem;">Currently Building</h3>
+      </div>
+      <p style="margin: 0; color: var(--text); font-size: 1.05rem;">
+        Working on an <strong>Agentic RAG system</strong> for intelligent career analysis and building a portfolio of production-ready AI applications. Actively exploring LLM applications and modern MLOps practices.
+      </p>
+    </div>
+  </div>
+
   <main class="container">
     <section id="about">
       <div class="section-head">
@@ -441,18 +657,18 @@
         </div>
       </div>
       <div class="about-grid">
-        <div class="section-card">
+        <div class="section-card fade-in">
           <p>
             I recently completed an MSc in Applied Artificial Intelligence with Distinction and have worked on production ML systems,
             predictive modelling, REST-based deployment, and deep learning research. My work spans customer re-engagement systems,
             computer vision, optical flow-based modelling, and LLM/RAG applications.
           </p>
           <p>
-            I’m currently targeting AI Engineer, ML Engineer, and applied AI roles across the UK, Europe, Canada, and the US,
+            I'm currently targeting AI Engineer, ML Engineer, and applied AI roles across the UK, Europe, Canada, and the US,
             with interest in fintech, risk, insurtech, computer vision, and product-led AI environments.
           </p>
         </div>
-        <div class="section-card">
+        <div class="section-card fade-in">
           <h3 style="margin-top:0;">What I bring</h3>
           <ul class="list">
             <li>Production ML systems with measurable business impact</li>
@@ -468,11 +684,12 @@
       <div class="section-head">
         <div>
           <h2>Selected Projects</h2>
-          <p>Three portfolio anchors that support your positioning as an AI engineer rather than a generic graduate profile.</p>
+          <p>Portfolio anchors demonstrating end-to-end AI engineering capabilities.</p>
         </div>
       </div>
       <div class="projects-grid">
-        <article class="project-card">
+        <article class="project-card fade-in">
+          <div class="project-img">📊</div>
           <span class="project-tag">Research + Computer Vision</span>
           <h3>Financial Distress Prediction using CNN + RAFT</h3>
           <p>
@@ -487,11 +704,13 @@
           </div>
           <p><strong>Outcome:</strong> Achieved 93–95% classification accuracy with ~0.90 recall and interpretable flow-map analysis.</p>
           <div class="project-links">
-            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">View Code ↗</a>
+            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">Read More ↗</a>
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card fade-in">
+          <div class="project-img">🎯</div>
           <span class="project-tag">Production ML</span>
           <h3>AI-Driven Member Re-engagement at Wellyx</h3>
           <p>
@@ -506,11 +725,12 @@
           </div>
           <p><strong>Outcome:</strong> Contributed to ~12–18% improvement in re-engagement and reduced manual intervention via microservices.</p>
           <div class="project-links">
-            <a href="#contact">Ask for details ↗</a>
+            <a href="mailto:kumail@kumailhaider.com">Request Details ↗</a>
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card fade-in">
+          <div class="project-img">🤖</div>
           <span class="project-tag">LLM Applications</span>
           <h3>Agentic RAG / LLM Workflow Systems</h3>
           <p>
@@ -525,7 +745,8 @@
           </div>
           <p><strong>Outcome:</strong> Built a portfolio-ready applied AI system aligned with current market demand for agentic products.</p>
           <div class="project-links">
-            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">View Code ↗</a>
+            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">Live Demo ↗</a>
           </div>
         </article>
       </div>
@@ -539,17 +760,17 @@
         </div>
       </div>
       <div class="timeline">
-        <div class="timeline-item">
+        <div class="timeline-item fade-in">
           <span class="timeline-meta">Apr 2024 – Present · London</span>
           <h3>AI Engineer · Wellyx</h3>
           <p>Designed and deployed AI-driven features, predictive models, ETL pipelines, and REST-based services for production workflows.</p>
         </div>
-        <div class="timeline-item">
+        <div class="timeline-item fade-in">
           <span class="timeline-meta">Feb 2025 – Apr 2025 · London</span>
           <h3>Client Project Manager / Industry Mentor · London South Bank University</h3>
           <p>Acted as project client and mentor for software engineering teams, improving sprint delivery quality through structured feedback.</p>
         </div>
-        <div class="timeline-item">
+        <div class="timeline-item fade-in">
           <span class="timeline-meta">Sep 2022 – Aug 2023 · Lahore</span>
           <h3>Software Developer · Soft Steer Global Technology</h3>
           <p>Built backend features in C#, improved API stability, and delivered solutions under real client and deployment constraints.</p>
@@ -565,7 +786,7 @@
         </div>
       </div>
       <div class="skills-grid">
-        <div class="skill-box">
+        <div class="skill-box fade-in">
           <h3>Programming</h3>
           <div class="pill-row">
             <span class="pill">Python</span>
@@ -574,7 +795,7 @@
             <span class="pill">JavaScript</span>
           </div>
         </div>
-        <div class="skill-box">
+        <div class="skill-box fade-in">
           <h3>ML / DL</h3>
           <div class="pill-row">
             <span class="pill">PyTorch</span>
@@ -583,7 +804,7 @@
             <span class="pill">CNNs</span>
           </div>
         </div>
-        <div class="skill-box">
+        <div class="skill-box fade-in">
           <h3>Deployment</h3>
           <div class="pill-row">
             <span class="pill">FastAPI</span>
@@ -592,12 +813,12 @@
             <span class="pill">Git</span>
           </div>
         </div>
-        <div class="skill-box">
+        <div class="skill-box fade-in">
           <h3>Applied AI</h3>
           <div class="pill-row">
             <span class="pill">Computer Vision</span>
-            <span class="pill">RAFT Optical Flow</span>
-            <span class="pill">RAG Systems</span>
+            <span class="pill">RAFT</span>
+            <span class="pill">RAG</span>
             <span class="pill">MLOps</span>
           </div>
         </div>
@@ -612,27 +833,68 @@
         </div>
       </div>
       <div class="contact-grid">
-        <div class="contact-card">
-          <h3>Let’s connect</h3>
-          <p>I’m currently open to conversations about production ML, computer vision, RAG systems, and AI roles across international markets.</p>
+        <div class="contact-card fade-in">
+          <h3>Let's connect</h3>
+          <p>I'm currently open to conversations about production ML, computer vision, RAG systems, and AI roles across international markets.</p>
           <div class="social">
-            <a href="mailto:kumailhaiderid@gmail.com">Email</a>
-            <a href="https://www.linkedin.com/in/kumail-sp" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:kumail@kumailhaider.com">Email ↗</a>
+            <a href="https://www.linkedin.com/in/kumail-sp" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://github.com/kumail-sp" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
         </div>
-        <div class="contact-card">
+        <div class="contact-card fade-in">
           <h3>Quick details</h3>
           <p><strong>Location:</strong> London, United Kingdom</p>
           <p><strong>Email:</strong> kumail@kumailhaider.com</p>
+          <p><strong>Phone:</strong> +44 7922 950706</p>
           <p><strong>Focus:</strong> AI Engineer · ML Engineer · Applied AI</p>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Floating CV Button -->
+  <a href="Kumail_Haider_AI_Engineer_CV.pdf" target="_blank" class="floating-cv-btn">
+    📄 Download CV
+  </a>
+
   <footer>
-    © 2026 Kumail Haider · Built for recruiter clarity, strong technical positioning, and global AI opportunities.
+    © 2025 Kumail Haider · Built for recruiter clarity, strong technical positioning, and global AI opportunities.
   </footer>
+
+  <script>
+    // Fade in elements on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
